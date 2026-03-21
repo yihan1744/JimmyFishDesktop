@@ -1,0 +1,29 @@
+# Godot 4
+
+.import/
+.godot/
+
+# macOS
+
+.DS_Store
+
+# Windows
+
+Thumbs.db
+Desktop.ini
+
+# Editor temp
+
+*.tmp
+*.bak
+*.log
+
+# IDE / local tooling
+
+.vscode/
+.cursor/
+
+# Blender tools debug output
+
+tools/mapping_dump.json
+tools/mapping_inspect.json
