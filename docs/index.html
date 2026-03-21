@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jimmy Fish Desktop — Download</title>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
   <style>
     :root {
       color-scheme: light dark;
@@ -44,46 +43,68 @@
       position: relative;
     }
 
-    .fish-field {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    /* Same size & orientation everywhere — only position changes per slot. */
-    .fish-slot {
+    .bg-seq {
       position: absolute;
-      width: min(9.5rem, 22vmin);
-      height: min(9.5rem, 22vmin);
-      opacity: 0.4;
-      --poster-color: transparent;
-    }
-    @media (prefers-color-scheme: dark) {
-      .fish-slot { opacity: 0.34; }
-    }
-    .fish-slot model-viewer {
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: transparent;
+      min-height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      overflow: visible;
     }
-    .fish-slot--1 { top: 10%; left: 9%; }
-    .fish-slot--2 { top: 14%; right: 10%; }
-    .fish-slot--3 { bottom: 22%; left: 8%; }
-    .fish-slot--4 { bottom: 16%; right: 9%; }
-    .fish-slot--5 { top: 46%; left: 5%; }
-    .fish-slot--6 { top: 52%; right: 6%; }
+    .bg-seq__frame {
+      position: absolute;
+      width: clamp(240px, 35vmin, 390px);
+      height: auto;
+      z-index: 1;
+      opacity: 0.8;
+      filter: saturate(1.04) contrast(1.03);
+      border-radius: 12px;
+    }
+    .bg-seq__frame--1 { top: 1%; left: -2%; }
+    .bg-seq__frame--2 { top: 0%; left: 12%; }
+    .bg-seq__frame--3 { top: 1%; left: 28%; }
+    .bg-seq__frame--4 { top: 1%; right: 28%; }
+    .bg-seq__frame--5 { top: 0%; right: 12%; }
+    .bg-seq__frame--6 { top: 1%; right: -2%; }
+    .bg-seq__frame--7 { top: 18%; left: -3%; }
+    .bg-seq__frame--8 { top: 18%; right: -3%; }
+    .bg-seq__frame--9 { top: 36%; left: -4%; }
+    .bg-seq__frame--10 { top: 36%; right: -4%; }
+    .bg-seq__frame--11 { top: 53%; left: -3%; }
+    .bg-seq__frame--12 { top: 53%; right: -3%; }
+    .bg-seq__frame--13 { top: 69%; left: -2%; }
+    .bg-seq__frame--14 { top: 69%; right: -2%; }
+    .bg-seq__frame--15 { bottom: 1%; left: -2%; }
+    .bg-seq__frame--16 { bottom: 0%; left: 12%; }
+    .bg-seq__frame--17 { bottom: 1%; left: 28%; }
+    .bg-seq__frame--18 { bottom: 1%; right: 28%; }
+    .bg-seq__frame--19 { bottom: 0%; right: 12%; }
+    .bg-seq__frame--20 { bottom: 1%; right: -2%; }
     @media (max-width: 48rem) {
-      .fish-slot--5,
-      .fish-slot--6 { display: none; }
+      .bg-seq__frame {
+        width: clamp(205px, 55vw, 300px);
+      }
+      .bg-seq__frame--3,
+      .bg-seq__frame--4,
+      .bg-seq__frame--9,
+      .bg-seq__frame--10,
+      .bg-seq__frame--11,
+      .bg-seq__frame--12,
+      .bg-seq__frame--17,
+      .bg-seq__frame--18,
+      .bg-seq__frame--19,
+      .bg-seq__frame--20 { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .fish-field { display: none; }
+      .bg-seq { display: none; }
     }
 
     main {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       max-width: 56rem;
       margin: 0 auto;
       padding: 2.5rem 1.25rem 3rem;
@@ -246,38 +267,69 @@
   </style>
 </head>
 <body>
-  <template id="fish-mv-template">
-    <model-viewer src="assets/jimmyfish.glb" alt="" autoplay shadow-intensity="0.25" exposure="1.1"
-      environment-image="neutral" interaction-prompt="none" disable-tap></model-viewer>
-  </template>
-  <div class="fish-field" aria-hidden="true">
-    <div class="fish-slot fish-slot--1" data-fish-slot></div>
-    <div class="fish-slot fish-slot--2" data-fish-slot></div>
-    <div class="fish-slot fish-slot--3" data-fish-slot></div>
-    <div class="fish-slot fish-slot--4" data-fish-slot></div>
-    <div class="fish-slot fish-slot--5" data-fish-slot></div>
-    <div class="fish-slot fish-slot--6" data-fish-slot></div>
+  <div class="bg-seq" aria-hidden="true">
+    <img class="bg-seq__frame bg-seq__frame--1" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--2" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--3" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--4" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--5" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--6" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--7" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--8" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--9" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--10" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--11" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--12" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--13" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--14" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--15" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--16" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--17" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--18" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--19" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
+    <img class="bg-seq__frame bg-seq__frame--20" data-bg-fish src="assets/fish_animation00000000.png" alt="" decoding="async" />
   </div>
   <script>
     (function () {
-      var tpl = document.getElementById("fish-mv-template");
-      if (!tpl || !tpl.content) return;
-      function fillSlots(orbit, version) {
-        document.querySelectorAll("[data-fish-slot]").forEach(function (slot) {
-          slot.appendChild(tpl.content.cloneNode(true));
-          var mv = slot.querySelector("model-viewer");
-          if (mv) {
-            if (version !== null && version !== undefined) {
-              mv.setAttribute("src", "assets/jimmyfish.glb?v=" + encodeURIComponent(String(version)));
-            }
-            if (orbit) mv.setAttribute("camera-orbit", orbit);
-          }
-        });
+      var frameEls = document.querySelectorAll("[data-bg-fish]");
+      if (!frameEls.length) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      var frameCount = 300;
+      var fps = 24 * 1.2;
+      var frameStepMs = 1000 / fps;
+      var current = 0;
+      var lastTs = 0;
+      var frameOffsets = Array.prototype.map.call(frameEls, function () {
+        return Math.floor(Math.random() * frameCount);
+      });
+
+      function framePath(index) {
+        return "assets/fish_animation" + String(index).padStart(8, "0") + ".png";
       }
-      fetch("assets/fish-camera.json?t=" + Date.now(), { cache: "no-store" })
-        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function (data) { fillSlots(data.cameraOrbit, data.assetVersion); })
-        .catch(function () { fillSlots(null, null); });
+
+      for (var i = 1; i <= 8; i += 1) {
+        var preload = new Image();
+        preload.src = framePath(i);
+      }
+      frameEls.forEach(function (el, idx) {
+        el.src = framePath(frameOffsets[idx]);
+      });
+
+      function animate(ts) {
+        if (!lastTs) lastTs = ts;
+        if (ts - lastTs >= frameStepMs) {
+          current = (current + 1) % frameCount;
+          frameEls.forEach(function (el, idx) {
+            var frameIndex = (current + frameOffsets[idx]) % frameCount;
+            el.src = framePath(frameIndex);
+          });
+          lastTs = ts;
+        }
+        window.requestAnimationFrame(animate);
+      }
+
+      window.requestAnimationFrame(animate);
     })();
   </script>
   <main>
