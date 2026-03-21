@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jimmy Fish Desktop — Download</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f0eeea;
+      --fg: #141414;
+      --muted: #5c5c5c;
+      --card: #fff;
+      --card-inner: color-mix(in srgb, var(--fg) 4%, var(--card));
+      --border: #e0dbd3;
+      --mac: #0071e3;
+      --mac-dim: color-mix(in srgb, var(--mac) 12%, transparent);
+      --win: #107c10;
+      --win-dim: color-mix(in srgb, var(--win) 12%, transparent);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f0f;
+        --fg: #f2f2f2;
+        --muted: #9a9a9a;
+        --card: #181818;
+        --card-inner: color-mix(in srgb, var(--fg) 6%, #0a0a0a);
+        --border: #2e2e2e;
+        --mac: #0a84ff;
+        --mac-dim: color-mix(in srgb, var(--mac) 18%, transparent);
+        --win: #54b948;
+        --win-dim: color-mix(in srgb, var(--win) 18%, transparent);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .fish-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    /* Same size & orientation everywhere — only position changes per slot. */
+    .fish-slot {
+      position: absolute;
+      width: min(9.5rem, 22vmin);
+      height: min(9.5rem, 22vmin);
+      opacity: 0.4;
+      --poster-color: transparent;
+    }
+    @media (prefers-color-scheme: dark) {
+      .fish-slot { opacity: 0.34; }
+    }
+    .fish-slot model-viewer {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+    .fish-slot--1 { top: 10%; left: 9%; }
+    .fish-slot--2 { top: 14%; right: 10%; }
+    .fish-slot--3 { bottom: 22%; left: 8%; }
+    .fish-slot--4 { bottom: 16%; right: 9%; }
+    .fish-slot--5 { top: 46%; left: 5%; }
+    .fish-slot--6 { top: 52%; right: 6%; }
+    @media (max-width: 48rem) {
+      .fish-slot--5,
+      .fish-slot--6 { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fish-field { display: none; }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.2rem);
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.35rem;
+    }
+    .tagline {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+    .tagline-zh {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    @media (min-width: 52rem) {
+      .platform-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .platform-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 0 color-mix(in srgb, var(--fg) 6%, transparent);
+    }
+    .platform-card--mac { --accent: var(--mac); --accent-dim: var(--mac-dim); }
+    .platform-card--win { --accent: var(--win); --accent-dim: var(--win-dim); }
+
+    .platform-card__ribbon {
+      height: 4px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .platform-card__head {
+      padding: 1.25rem 1.35rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .platform-card__title {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .platform-card__title span {
+      font-size: 1.5rem;
+      line-height: 1;
+      opacity: 0.9;
+    }
+    .platform-card__meta {
+      margin: 0.35rem 0 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .platform-card__dl {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.25rem 1.35rem 0;
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #fff;
+      background: var(--accent);
+      transition: filter 0.15s ease, transform 0.12s ease;
+      box-shadow: 0 2px 12px var(--accent-dim);
+    }
+    .platform-card__dl:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+    .platform-card__dl:active { transform: translateY(0); }
+
+    .platform-card__guide {
+      margin-top: 1.25rem;
+      padding: 1.15rem 1.35rem 1.35rem;
+      background: var(--card-inner);
+      border-top: 1px solid var(--border);
+      flex: 1;
+    }
+    .platform-card__guide h3 {
+      margin: 0 0 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .platform-card__guide h3 .zh-inline {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      text-transform: none;
+    }
+    .guide-block p {
+      margin: 0 0 0.65rem;
+      font-size: 0.93rem;
+      color: color-mix(in srgb, var(--fg) 90%, var(--muted));
+    }
+    .guide-block p:last-child { margin-bottom: 0; }
+    .guide-block .zh {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: -0.4rem;
+      margin-bottom: 0.7rem;
+      line-height: 1.55;
+    }
+    .guide-block ol {
+      margin: 0 0 0.65rem;
+      padding-left: 1.15rem;
+      font-size: 0.9rem;
+      color: color-mix(in srgb, var(--fg) 88%, var(--muted));
+    }
+    .guide-block ol li { margin-bottom: 0.35rem; }
+    .guide-block ol.zh-steps {
+      margin-top: -0.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <template id="fish-mv-template">
+    <model-viewer src="assets/jimmyfish.glb" alt="" autoplay shadow-intensity="0.25" exposure="1.1"
+      environment-image="neutral" interaction-prompt="none" disable-tap></model-viewer>
+  </template>
+  <div class="fish-field" aria-hidden="true">
+    <div class="fish-slot fish-slot--1" data-fish-slot></div>
+    <div class="fish-slot fish-slot--2" data-fish-slot></div>
+    <div class="fish-slot fish-slot--3" data-fish-slot></div>
+    <div class="fish-slot fish-slot--4" data-fish-slot></div>
+    <div class="fish-slot fish-slot--5" data-fish-slot></div>
+    <div class="fish-slot fish-slot--6" data-fish-slot></div>
+  </div>
+  <script>
+    (function () {
+      var tpl = document.getElementById("fish-mv-template");
+      if (!tpl || !tpl.content) return;
+      function fillSlots(orbit, version) {
+        document.querySelectorAll("[data-fish-slot]").forEach(function (slot) {
+          slot.appendChild(tpl.content.cloneNode(true));
+          var mv = slot.querySelector("model-viewer");
+          if (mv) {
+            if (version !== null && version !== undefined) {
+              mv.setAttribute("src", "assets/jimmyfish.glb?v=" + encodeURIComponent(String(version)));
+            }
+            if (orbit) mv.setAttribute("camera-orbit", orbit);
+          }
+        });
+      }
+      fetch("assets/fish-camera.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) { fillSlots(data.cameraOrbit, data.assetVersion); })
+        .catch(function () { fillSlots(null, null); });
+    })();
+  </script>
+  <main>
+    <div class="hero">
+      <h1>Jimmy Fish Desktop</h1>
+      <p class="tagline">Choose your platform — download and run.</p>
+      <p class="tagline-zh" lang="zh-Hans">选择你的系统 — 下载后即可运行。</p>
+    </div>
+
+    <div class="platform-grid">
+      <article class="platform-card platform-card--mac">
+        <div class="platform-card__ribbon" aria-hidden="true"></div>
+        <header class="platform-card__head">
+          <h2 class="platform-card__title"><span aria-hidden="true">🍎</span> macOS</h2>
+          <p class="platform-card__meta">ZIP · Universal (Intel &amp; Apple&nbsp;chip) · ~65&nbsp;MB</p>
+        </header>
+        <a class="platform-card__dl" href="JimmyFish-macOS.zip" download="JimmyFish-macOS.zip">Download for Mac</a>
+        <div class="platform-card__guide">
+          <h3>After downloading <span class="zh-inline" lang="zh-Hans">下载完成后</span></h3>
+          <div class="guide-block">
+            <p><strong>1.</strong> Unzip, then double‑click the game to run.</p>
+            <p class="zh" lang="zh-Hans"><strong>1.</strong> 解压 ZIP，双击游戏运行。</p>
+            <p><strong>2.</strong> If you see <strong>“Not Opened”</strong> (<strong>Done</strong> / <strong>Move to Bin</strong>): click <strong>Done</strong> — not <strong>Move to Bin</strong>. Then use <strong>Open Anyway</strong> in Settings (below). <strong>Once is enough;</strong> after that it opens normally.</p>
+            <p class="zh" lang="zh-Hans"><strong>2.</strong> 若出现<strong>「未能打开」</strong>（<strong>「好」</strong> / <strong>「移到废纸篓」</strong>）：点<strong>「好」</strong>，勿点<strong>「移到废纸篓」</strong>；再到系统设置中使用<strong>「仍要打开」</strong>（见下）。<strong>通常只需一次</strong>，之后即可正常打开。</p>
+            <p><strong>Open Anyway — steps</strong></p>
+            <ol>
+              <li><strong>System Settings</strong> → <strong>Privacy &amp; Security</strong></li>
+              <li>Under <strong>Security</strong>, find the blocked app message → <strong>Open Anyway</strong> (password if asked).</li>
+              <li>Open the game again → confirm <strong>Open</strong>.</li>
+            </ol>
+            <p class="zh" lang="zh-Hans" style="margin-bottom:0.35rem"><strong>仍要打开 — 步骤</strong></p>
+            <ol class="zh-steps" lang="zh-Hans">
+              <li><strong>系统设置</strong> → <strong>隐私与安全性</strong></li>
+              <li>在<strong>安全性</strong>中找到拦截提示 → <strong>仍要打开</strong>（按需输入密码）</li>
+              <li>再次打开游戏 → 选<strong>打开</strong></li>
+            </ol>
+          </div>
+        </div>
+      </article>
+
+      <article class="platform-card platform-card--win">
+        <div class="platform-card__ribbon" aria-hidden="true"></div>
+        <header class="platform-card__head">
+          <h2 class="platform-card__title"><span aria-hidden="true">🪟</span> Windows</h2>
+          <p class="platform-card__meta">ZIP · 64-bit · ~34&nbsp;MB</p>
+        </header>
+        <a class="platform-card__dl" href="JimmyFish-Windows.zip" download="JimmyFish-Windows.zip">Download for Windows</a>
+        <div class="platform-card__guide">
+          <h3>After downloading <span class="zh-inline" lang="zh-Hans">下载完成后</span></h3>
+          <div class="guide-block">
+            <p>Open the ZIP (or right‑click → <strong>Extract All…</strong>), then double‑click the game to play.</p>
+            <p class="zh" lang="zh-Hans">打开 ZIP（或右键<strong>「全部提取」</strong>），然后双击游戏即可游玩。</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <a href="https://github.com/yihan1744/JimmyFishDesktop">GitHub</a>
+    </footer>
+  </main>
+</body>
+</html>
