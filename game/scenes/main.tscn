@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b1gtln2g2ivh5"]
+
+[ext_resource type="Script" uid="uid://d0pyu52fg2j3e" path="res://scripts/systems/app.gd" id="1_app"]
+[ext_resource type="PackedScene" uid="uid://cmjxlan3sd0aq" path="res://assets/pet/JimmyFish_gltf_ready.blend" id="2_pet"]
+[ext_resource type="Script" uid="uid://bde8v0x3npaxo" path="res://scripts/pet_flat_2d_style.gd" id="4_flat2d"]
+
+[sub_resource type="Environment" id="Environment_blender_like"]
+background_color = Color(0, 0, 0, 0)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.25
+reflected_light_source = 1
+tonemap_mode = 2
+tonemap_exposure = 0.85
+tonemap_white = 7.5
+
+[node name="Main" type="Node" unique_id=1426329794]
+script = ExtResource("1_app")
+
+[node name="App" type="Node" parent="." unique_id=1389747042]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="App" unique_id=1815194742]
+environment = SubResource("Environment_blender_like")
+
+[node name="PetContainer" type="Node3D" parent="App" unique_id=454936777]
+script = ExtResource("4_flat2d")
+
+[node name="JimmyFish" parent="App/PetContainer" unique_id=646921161 instance=ExtResource("2_pet")]
+
+[node name="Camera3D" type="Camera3D" parent="App" unique_id=1111111111]
+transform = Transform3D(-4.3540528e-08, 0.062459555, 0.9980475, 2.7301936e-09, 0.9980475, -0.062459555, -1, 5.341061e-12, -4.362604e-08, 5.378, 2.25, 0.075)
+projection = 1
+current = true
+size = 5.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="App" unique_id=-2072745074]
+transform = Transform3D(0.8657455, 0.35394797, -0.35384396, -0.35389596, 0.93286294, 0.067264326, 0.35389596, 0.06699015, 0.9328826, 12.013872, 2, 1)
+visible = false
+light_energy = 0.0
+light_indirect_energy = 0.0
