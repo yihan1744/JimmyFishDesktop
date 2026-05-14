@@ -1,6 +1,6 @@
 # JimmyFishDesktop
 
-A small **desktop pet** built with [Godot](https://godotengine.org/). **Live build (web):** [yihan1744.github.io/JimmyFishDesktop](https://yihan1744.github.io/JimmyFishDesktop/)
+A small **desktop pet** built with [Godot](https://godotengine.org/). 
 
 ## Source layout
 
